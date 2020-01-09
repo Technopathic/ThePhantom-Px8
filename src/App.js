@@ -1,26 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { Provider } from 'react-redux';
+import configureStore from './store';
+
+const Home = React.lazy(() => import('./containers/Home'));
+const store = configureStore();
+
+
+class App extends React.PureComponent {
+  
+  render() {
+    return(
+      <Provider store={store}>
+        <React.Suspense fallback={`<div></div>`}>
+          <Home />
+        </React.Suspense>
+      </Provider>
+    )
+  }
 }
 
 export default App;
